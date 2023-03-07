@@ -70,20 +70,24 @@ class Note():
     def __repr__(self) -> str:
         return f"<Note: {self.__str__()}>"
 
-    def __add__(self, num: int) -> Note:
-        new = Note(
+    def __add__(self, other: int) -> Note:
+        ret = Note(
             self.note, alteration=self.ALTERATION,
             show_octave=self.SHOW_OCTAVE
         )
-        new.OCTAVE = self.OCTAVE
-        new.note += num
-        return new
+        ret.OCTAVE = self.OCTAVE
+        ret.note += other
+        return ret
 
-    def __sub__(self, num: int) -> Note:
-        new = Note(
-            self.note, alteration=self.ALTERATION,
-            show_octave=self.SHOW_OCTAVE
-        )
-        new.OCTAVE = self.OCTAVE
-        new.note -= num
-        return new
+
+    def __sub__(self, other: int | Note):
+        if type(other) is int:
+            ret = Note(
+                self.note, alteration=self.ALTERATION,
+                show_octave=self.SHOW_OCTAVE
+            )
+            ret.OCTAVE = self.OCTAVE
+            ret.note -= other
+            return ret
+        elif type(other) is Note:
+            return abs(self.note - other.note)
