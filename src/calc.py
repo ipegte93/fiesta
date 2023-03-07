@@ -3,7 +3,7 @@ import re
 from src import Note
 
 
-def chord_to_notes(chord: str) -> list[Note]:
+def chord_tones(chord: str) -> list[Note]:
     d = re.fullmatch(r"([a-gA-G])(#|b)?(m)?(7)?", chord).groups()
     ret = list()
 
@@ -32,3 +32,11 @@ def chord_to_notes(chord: str) -> list[Note]:
         ret.append(seventh)
 
     return ret
+
+
+def notes_to_chords():
+    pass
+
+
+def notes_to_scale():
+    pass
