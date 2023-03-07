@@ -3,8 +3,11 @@ import re
 from src import Note
 
 
-def chord_tones(chord: str) -> list[Note]:
-    d = re.fullmatch(r"([a-gA-G])(#|b)?(m)?(7)?", chord).groups()
+def chord_tones(chord: str) -> tuple[Note]:
+    d = re.fullmatch(r"([a-gA-G])(#|b)?(m)?(7)?", chord)
+    if not d:
+        raise ValueError("chord")
+    d = d.groups()
     ret = list()
 
     # root
@@ -31,7 +34,7 @@ def chord_tones(chord: str) -> list[Note]:
         seventh = root + 11
         ret.append(seventh)
 
-    return ret
+    return tuple(ret)
 
 
 def notes_to_chords():
