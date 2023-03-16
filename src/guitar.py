@@ -1,4 +1,4 @@
-from src.note import Note
+from src import Note
 
 
 class Guitar:
