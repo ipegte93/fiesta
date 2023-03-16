@@ -1,6 +1,6 @@
 import re
 
-from src import Note
+from .note import Note
 
 
 def chord_tones(chord: str) -> tuple[Note]:

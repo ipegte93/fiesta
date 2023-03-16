@@ -79,7 +79,6 @@ class Note():
         ret.note += other
         return ret
 
-
     def __sub__(self, other: int | Note):
         if type(other) is int:
             ret = Note(

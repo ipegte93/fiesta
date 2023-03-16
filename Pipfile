@@ -4,13 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-textual = "*"
-rich = "*"
+kivy = {extras = ["base"], version = "*"}
 
 [dev-packages]
 autopep8 = "*"
-aiohttp = "*"
-msgpack = "*"
 
 [requires]
-python_version = "3.11"
+python_version = "3.10"
