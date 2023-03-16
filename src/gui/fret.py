@@ -1,29 +1,26 @@
-from kivy.uix.button import Button
 from kivy.uix.togglebutton import ToggleButton
-from kivy.lang import Builder
 
-from src.path import BASE
-
-Path = str(BASE/"gui"/"fret.kv")
-
-Builder.load_file(Path)
-
-NORMAL = (1, 1, 1, 1)
-DOWN = (0, 1, 0, 1)
+from src.gui import color
 
 
 class Fret(ToggleButton):
     def __init__(self, **kwargs):
         super(Fret, self).__init__(**kwargs)
+        self.color = color.BLACK
+        self.background_down = ""
+        self.background_normal = ""
+        self.background_disabled_down = ""
+        self.background_disabled_normal = ""
 
     def on_press(self):
         if self.state == "normal":
-            self.background_color = NORMAL
+            self.background_color = color.BTN_BG_NORMAL
         else:
-            self.background_color = DOWN
+            self.background_color = color.BTN_BG_DOWN
 
     def on_disabled(self, instance, value):
         if value:
-            self.background_color = self.disabled_color
+            self.background_color = color.BTN_DISABLED
+            self.disabled_color = color.BTN_DISABLED  # fonts color
         else:
             self.change_background_color()
