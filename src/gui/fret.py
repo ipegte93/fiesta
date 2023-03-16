@@ -8,11 +8,22 @@ Path = str(BASE/"gui"/"fret.kv")
 
 Builder.load_file(Path)
 
+NORMAL = (1, 1, 1, 1)
+DOWN = (0, 1, 0, 1)
+
 
 class Fret(ToggleButton):
     def __init__(self, **kwargs):
         super(Fret, self).__init__(**kwargs)
 
-    # def on_press(self):
-        # self.background_color = (1, 1, 1, 1)
-        # return super().on_press()
+    def on_press(self):
+        if self.state == "normal":
+            self.background_color = NORMAL
+        else:
+            self.background_color = DOWN
+
+    def on_disabled(self, instance, value):
+        if value:
+            self.background_color = self.disabled_color
+        else:
+            self.change_background_color()
