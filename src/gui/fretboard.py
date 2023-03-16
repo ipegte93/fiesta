@@ -5,7 +5,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.widget import Widget
 
-from fret import Fret
+from .fret import Fret
 
 class FretBoard(BoxLayout):
     def __init__(self, fret_length: int = 12, number_of_string: int = 6, **kwargs):

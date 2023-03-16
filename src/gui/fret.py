@@ -2,7 +2,12 @@ from kivy.uix.button import Button
 from kivy.uix.togglebutton import ToggleButton
 from kivy.lang import Builder
 
-Builder.load_file("fret.kv")
+from src.path import BASE
+
+Path = str(BASE/"gui"/"fret.kv")
+
+Builder.load_file(Path)
+
 
 class Fret(ToggleButton):
     def __init__(self, **kwargs):
