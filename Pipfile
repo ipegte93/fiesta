@@ -8,6 +8,8 @@ textual = "0.16.0"
 
 [dev-packages]
 autopep8 = "*"
+aiohttp = "*"
+msgpack = "*"
 
 [requires]
 python_version = "3.11"
