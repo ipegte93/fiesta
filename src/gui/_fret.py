@@ -25,9 +25,9 @@ class Fret(Static):
     }
     Fret.-toggle {
         border: solid gold;
+        color: gold;
     }
     """
-
 
     class Pressed(Message, bubble=True):
         """Fret Pressed Message."""
@@ -42,4 +42,6 @@ class Fret(Static):
 
     def _on_click(self, event: events.Click) -> None:
         event.stop()
+
+        self.toggle_class("-toggle")
         self.post_message(Fret.Pressed(self))
