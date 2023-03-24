@@ -10,22 +10,24 @@ class Fret(Static):
     Fret {
         width: 1fr;
         min-width: 2;
-        max-width: 9;
         height: 3;
         content-align-horizontal: center;
         content-align-vertical: middle;
-        border: solid gold;
+        border: solid white;
+        color: $surface;
+    }
+    Fret:hover {
+        color: $text;
     }
     Fret:disabled {
-        border: solid grey;
+        border: solid $background-lighten-3;
+        color: $surface;
     }
     Fret.-toggle {
-        border: solid white;
-    }
-    Fret.-ToggleAlt {
-        border: solid lightpink;
+        border: solid gold;
     }
     """
+
 
     class Pressed(Message, bubble=True):
         """Fret Pressed Message."""
