@@ -1,13 +1,10 @@
-from kivy.app import App
+from textual.app import App, ComposeResult
+from src.gui import Fretboard
 
-# from kivy.uix.label import Label
-# from kivy.uix.gridlayout import GridLayout
-from src.gui.fretboard import FretBoard
-
-
-class MyApp(App):
-    pass
-
+class Test(App):
+    def compose(self) -> ComposeResult:
+        yield Fretboard()
 
 if __name__ == "__main__":
-    MyApp().run()
+    app = Test()
+    app.run()
