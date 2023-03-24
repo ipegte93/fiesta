@@ -1,8 +1,5 @@
 from __future__ import annotations
 
-from functools import partial
-from typing import cast
-
 from textual.message import Message
 from textual.widget import events
 from textual.widgets import Static
@@ -33,10 +30,14 @@ class Fret(Static):
     class Pressed(Message, bubble=True):
         """Fret Pressed Message."""
 
-        @property
-        def fret(self) -> Fret:
-            return cast(Fret, self.sender)
+        def __init__(self, fret: Fret) -> None:
+            self.fret = fret
+            super().__init__()
 
-    async def _on_click(self, event: events.Click) -> None:
+        @property
+        def control(self) -> Fret:
+            return self.fret
+
+    def _on_click(self, event: events.Click) -> None:
         event.stop()
-        self.post_message_no_wait(Fret.Pressed(self))
+        self.post_message(Fret.Pressed(self))
