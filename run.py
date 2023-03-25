@@ -1,16 +1,5 @@
-from textual.app import App, ComposeResult
-
-from src.gui.fretboard import Fretboard
+from src.gui.app import App
 
 
-class Test(App):
-
-    BINDINGS = [("d", "toggle_dark", "Toggle dark mode")]
-
-    def compose(self) -> ComposeResult:
-        yield Fretboard("ye")
-
-
-if __name__ == "__main__":
-    app = Test()
-    app.run()
+app = App()
+app.run()
