@@ -1,6 +1,6 @@
 from textual.app import App, ComposeResult
 
-from src.gui._fretboard import Fretboard
+from src.gui.fretboard import Fretboard
 
 
 class Test(App):

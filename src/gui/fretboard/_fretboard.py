@@ -4,7 +4,7 @@ from textual.app import ComposeResult
 from textual.widget import Widget
 from textual.widgets import Static
 
-from src.gui._fret import Fret
+from src.gui.fretboard._fret import Fret
 from src.guitar import Guitar
 
 
