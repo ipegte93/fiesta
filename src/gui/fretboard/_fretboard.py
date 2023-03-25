@@ -5,7 +5,7 @@ from textual.widget import Widget
 from textual.widgets import Static
 
 from src.gui.fretboard._fret import Fret
-from src.guitar import Guitar
+from src import Guitar
 
 
 class Fretboard(Static):
