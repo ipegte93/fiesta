@@ -18,9 +18,7 @@ class Fretboard(Static):
     """
 
     FRET_LENGTH = 11
-
     border_title = "Fretboard"
-
     guitar = Guitar(fret=FRET_LENGTH)
 
     def on_fret_pressed(self, event: Fret.Pressed) -> None:
@@ -38,9 +36,9 @@ class Fretboard(Static):
         fb = self.guitar.fretboard
 
         for s in fb:
-            yield Horizontal(*[
-                Fret(f"{str(i)}", id=f"s{fb.index(s)}-{s.index(i)}") for i in s
-            ])
+            with Horizontal():
+                for i in s:
+                    yield Fret(str(i), id=f"s{fb.index(s)}-{s.index(i)}")
 
 
 class Horizontal(Widget):
