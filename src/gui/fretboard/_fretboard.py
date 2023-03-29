@@ -48,3 +48,9 @@ class Horizontal(Widget):
         height: 3;
     }
     """
+
+    def on_fret_pressed(self, event: Fret.Pressed) -> None:
+        for f in self.children:
+            if f == event.fret:
+                continue
+            f.remove_class("-toggle")
