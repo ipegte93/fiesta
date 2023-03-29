@@ -1,4 +1,4 @@
-from src.gui.app import App
+from src.cli.app import App
 
 app = App()
 app.run()
