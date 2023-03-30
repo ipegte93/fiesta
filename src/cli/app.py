@@ -11,6 +11,7 @@ class App(Textual):
     def action_fret_clear(self) -> None:
         for f in self.query("Fret.-toggle").results(Fret):
             f.remove_class("-toggle")
+            f.border_title = ""
 
     def compose(self) -> ComposeResult:
         yield Fretboard()
