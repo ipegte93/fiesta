@@ -1,8 +1,7 @@
 from textual.app import App as Textual
 from textual.app import ComposeResult
 
-from src.cli.fretboard import Fretboard
-from src.cli.fretboard._fret import Fret
+from src.cli.fretboard import Fret, Fretboard
 
 
 class App(Textual):

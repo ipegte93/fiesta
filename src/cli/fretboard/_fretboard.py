@@ -4,8 +4,8 @@ from textual.app import ComposeResult
 from textual.widget import Widget
 from textual.widgets import Static
 
-from src.cli.fretboard._fret import Fret
 from src import Guitar
+from src.cli.fretboard import Fret
 
 
 class Fretboard(Static):
