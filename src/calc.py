@@ -3,9 +3,16 @@ import re
 from src import Note
 
 
-def interval(note1: Note, note2: Note) -> str:
+def interval(note1: Note | str, note2: Note | str) -> str:
+    if type(note1) == str:
+        note1 = Note(note1)
+    if type(note2) == str:
+        note2 = Note(note2)
+
     i = note1 - note2
-    return str(i)
+    if i == 0:
+        return str(1)
+    return ""
 
 
 def chord_tones(chord: str) -> tuple[Note]:

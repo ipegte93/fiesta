@@ -5,6 +5,7 @@ from textual.widget import Widget
 from textual.widgets import Static
 
 from src import Guitar
+from src.calc import interval
 from src.cli.fretboard import Fret
 
 
@@ -24,12 +25,22 @@ class Fretboard(Static):
     def on_fret_pressed(self, event: Fret.Pressed) -> None:
         event.stop()
 
-        fs = self.query("Fret.-toggle").results(Fret)
-        root = fs.pop(-1)
-        root.title = 1
+        toggled_list = self.query("Fret.-toggle")
+        toggled_list = toggled_list.results(Fret)
+        toggled_list = list(toggled_list)
 
-        for f in fs:
-            pass
+        if len(toggled_list) == 0:
+            return
+
+        root = toggled_list.pop(-1)
+        root.border_title = str(1)
+
+        if len(toggled_list) == 0:
+            return
+
+        for toggled_fret in toggled_list:
+            title = interval(str(root.render()), str(toggled_fret.render()))
+            toggled_fret.border_title = title
 
         # s = re.search(r"s([0-9])-([0-9]{1,2})", event.fret.id)
         # note = self.guitar.fretboard[int(s.group(1))-1][int(s.group(2))]
@@ -57,7 +68,9 @@ class Horizontal(Widget):
     """
 
     def on_fret_pressed(self, event: Fret.Pressed) -> None:
-        for f in self.children:
-            if f == event.fret:
+        for fret in self.children:
+            if fret == event.fret:
                 continue
-            f.remove_class("-toggle")
+            elif fret.has_class("-toggle"):
+                fret.remove_class("-toggle")
+                fret.border_title = ""

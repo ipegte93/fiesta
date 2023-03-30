@@ -45,4 +45,7 @@ class Fret(Static):
         event.stop()
 
         self.toggle_class("-toggle")
+        if not self.has_class("-toggle"):
+            self.border_title = ""
+
         self.post_message(Fret.Pressed(self))
