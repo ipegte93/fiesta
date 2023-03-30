@@ -9,10 +9,20 @@ def interval(note1: Note | str, note2: Note | str) -> str:
     if type(note2) == str:
         note2 = Note(note2)
 
+    print("note1: " + str(note1))
+    print("note2: " + str(note2))
+
     i = note1 - note2
-    if i == 0:
-        return str(1)
-    return ""
+    print("result: " + str(i))
+
+    interval_dict = {
+        0: "1", 1: "b9", 2: "sus2",
+        3: "m3", 4: "3", 5: "sus4",
+        6: "b5", 7: "5", 8: "#5",
+        9: "6", 10: "7", 11: "maj7"
+    }
+
+    return interval_dict[i]
 
 
 def chord_tones(chord: str) -> tuple[Note]:
