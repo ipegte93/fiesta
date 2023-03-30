@@ -4,12 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-textual = "0.16.0"
+textual = "0.17.0"
 
 [dev-packages]
 autopep8 = "*"
 aiohttp = "*"
 msgpack = "*"
+textual = {extras = ["dev"], version = "0.17.0"}
 
 [requires]
 python_version = "3.11"
