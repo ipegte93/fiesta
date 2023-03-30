@@ -3,6 +3,11 @@ import re
 from src import Note
 
 
+def interval(note1: Note, note2: Note) -> str:
+    i = note1 - note2
+    return str(i)
+
+
 def chord_tones(chord: str) -> tuple[Note]:
     d = re.fullmatch(r"([a-gA-G])(#|b)?(m)?(7)?", chord)
     if not d:
