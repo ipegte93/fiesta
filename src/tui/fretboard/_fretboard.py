@@ -6,7 +6,7 @@ from textual.widgets import Static
 
 from src import Guitar
 from src.calc import interval
-from src.cli.fretboard import Fret
+from src.tui.fretboard import Fret
 
 
 class Fretboard(Static):
