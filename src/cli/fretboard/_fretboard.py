@@ -24,6 +24,13 @@ class Fretboard(Static):
     def on_fret_pressed(self, event: Fret.Pressed) -> None:
         event.stop()
 
+        fs = self.query("Fret.-toggle").results(Fret)
+        root = fs.pop(-1)
+        root.title = 1
+
+        for f in fs:
+            pass
+
         # s = re.search(r"s([0-9])-([0-9]{1,2})", event.fret.id)
         # note = self.guitar.fretboard[int(s.group(1))-1][int(s.group(2))]
 
