@@ -14,6 +14,7 @@ class Fret(Static):
         content-align-horizontal: center;
         content-align-vertical: middle;
         border: solid white;
+        border-title-align: center;
         border-subtitle-align: center;
         color: $surface;
     }
