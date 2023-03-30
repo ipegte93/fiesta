@@ -41,7 +41,7 @@ class Fret(Static):
         def control(self) -> Fret:
             return self.fret
 
-    def _on_click(self, event: events.Click) -> None:
+    async def _on_click(self, event: events.Click) -> None:
         event.stop()
 
         self.toggle_class("-toggle")
