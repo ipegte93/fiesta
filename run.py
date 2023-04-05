@@ -1,4 +1,8 @@
 from src.tui.app import App
 
-app = App()
-app.run()
+def main():
+    app = App()
+    app.run()
+
+if __name__ == "__main__":
+    main()
