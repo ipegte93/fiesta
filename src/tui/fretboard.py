@@ -12,14 +12,6 @@ from src.calc import interval
 
 
 class Fretboard(Static):
-    DEFAULT_CSS = """
-    Fretboard {
-        layout: vertical;
-        border: solid white;
-        border-title-align: left;
-    }
-    """
-
     FRET_LENGTH = 11
     border_title = "Fretboard"
     guitar = Guitar(fret=FRET_LENGTH)
