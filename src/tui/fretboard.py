@@ -70,31 +70,6 @@ class Horizontal(Widget):
                 fret.border_title = ""
 
 class Fret(Static):
-    DEFAULT_CSS = """
-    Fret {
-        width: 1fr;
-        min-width: 2;
-        height: 3;
-        content-align-horizontal: center;
-        content-align-vertical: middle;
-        border: solid white;
-        border-title-align: center;
-        border-subtitle-align: center;
-        color: $surface;
-    }
-    Fret:hover {
-        color: $text;
-    }
-    Fret:disabled {
-        border: solid $background-lighten-3;
-        color: $surface;
-    }
-    Fret.-toggle {
-        border: solid gold;
-        color: gold;
-    }
-    """
-
     class Pressed(Message, bubble=True):
         """Fret Pressed Message."""
 
