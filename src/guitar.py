@@ -47,3 +47,10 @@ class Guitar:
             self.fretboard.append(gs)
 
         self.fretboard.reverse()
+
+def Notes(fret: int, tuning: str = "EADGBE"):
+    ret = list()
+    for note in list(tuning).reverse():
+        for i in range(fret+1):
+            ret.append(Note(note)+i)
+    return ret
