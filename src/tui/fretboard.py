@@ -9,7 +9,6 @@ from textual.widget import events
 
 from src import Guitar
 from src.calc import interval
-from src.tui.fretboard import Fret
 
 
 class Fretboard(Static):
