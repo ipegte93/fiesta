@@ -1,1 +1,5 @@
-
+Fretboard {
+  layout: vertical;
+  border: solid white;
+  border-title-align: left;
+}
