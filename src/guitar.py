@@ -55,6 +55,19 @@ def notes(fret: int, tuning: str = "EADGBE"):
             ret.append(Note(note)+i)
     return ret
 
-def scale(scale, fret: int, tuning: str = "EADGBE"):
-    pass
-  
+def scale(scale: str, fret: int, tuning: str = "EADGBE"):
+    scale = scale.split(" ")
+    note = Note(scale[0])
+    scale = scale[1]
+    if scale == "major":
+        scale = (2, 2, 1, 2, 2, 2, 1)
+    elif scale == "minor":
+        scale = (2, 1, 2, 2, 1, 2, 2)
+    else:
+        raise ValueError("scale")
+        
+    ret = list()
+    ret.append(note)
+    for i in scale:
+        note += i
+        ret.append(note)
