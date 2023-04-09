@@ -14,7 +14,7 @@ from src.guitar import notes
 class Fretboard(Screen):
     BINDINGS = [("c", "fret_clear", "clear fret")]
 
-    def action_fret_clear(self) -> None:
+    async def action_fret_clear(self) -> None:
         for f in self.query("Fret.-toggle").results(Fret):
             f.remove_class("-toggle")
             f.border_title = ""
@@ -49,7 +49,7 @@ class Fretboard(Screen):
             f = self.query_one(f"#s6-{i}")
             f.border_subtitle = str(i)
 
-    def on_fret_pressed(self, event: Fret.Pressed) -> None:
+    async def on_fret_pressed(self, event: Fret.Pressed) -> None:
         event.stop()
 
         for fret in self.query("Fret.-toggle").results(Fret):
