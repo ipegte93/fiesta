@@ -15,9 +15,8 @@ class Fretboard(Screen):
     BINDINGS = [("c", "fret_clear", "clear fret")]
 
     async def action_fret_clear(self) -> None:
-        for f in self.query("Fret.-toggle").results(Fret):
-            f.remove_class("-toggle")
-            f.border_title = ""
+        for fret in self.query("Fret.-toggle").results(Fret):
+            fret.toggle = False
 
     def __init__(
         self,
@@ -55,8 +54,8 @@ class Fretboard(Screen):
         for fret in self.query("Fret.-toggle").results(Fret):
             if event.fret == fret:
                 continue
-            if event.fret.classes == fret.classes:
-                fret.remove_class("-toggle")
+            if event.fret.classes == fret.classes:  # Same string class
+                fret.toggle = False
 
         toggle = list(self.query("Fret.-toggle").results(Fret))
         if len(toggle) == 0:
@@ -86,8 +85,21 @@ class Fret(Static):
     async def _on_click(self, event: events.Click) -> None:
         event.stop()
 
-        self.toggle_class("-toggle")
-        if not self.has_class("-toggle"):
-            self.border_title = ""
+        if self.toggle:
+            self.toggle = False
+        else:
+            self.toggle = True
 
         self.post_message(Fret.Pressed(self))
+
+    @property
+    def toggle(self) -> bool:
+        return self.has_class("-toggle")
+
+    @toggle.setter
+    def toggle(self, value: bool):
+        if value:
+            self.add_class("-toggle")
+        else:
+            self.remove_class("-toggle")
+            self.border_title = ""
