@@ -1,5 +1,4 @@
 from src import Note
-import re
 
 
 class Guitar:

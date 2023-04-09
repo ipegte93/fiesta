@@ -69,6 +69,7 @@ class Horizontal(Widget):
                 fret.remove_class("-toggle")
                 fret.border_title = ""
 
+
 class Fret(Static):
     class Pressed(Message, bubble=True):
         """Fret Pressed Message."""
@@ -89,4 +90,3 @@ class Fret(Static):
             self.border_title = ""
 
         self.post_message(Fret.Pressed(self))
-
