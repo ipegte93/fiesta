@@ -9,11 +9,7 @@ def interval(note1: Note | str, note2: Note | str) -> str:
     if type(note2) == str:
         note2 = Note(note2)
 
-    print("note1: " + str(note1))
-    print("note2: " + str(note2))
-
     i = note1 - note2
-    print("result: " + str(i))
 
     interval_dict = {
         0: "1", 1: "b9", 2: "sus2",
