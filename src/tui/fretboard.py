@@ -1,73 +1,74 @@
 from __future__ import annotations
-import re
 
 from textual.app import ComposeResult
-from textual.widget import Widget
-from textual.widgets import Static
+from textual.containers import Container
 from textual.message import Message
+from textual.screen import Screen
 from textual.widget import events
+from textual.widgets import Static
 
-from src import Guitar
 from src.calc import interval
+from src.guitar import notes
 
 
-class Fretboard(Static):
-    FRET_LENGTH = 11
-    border_title = "Fretboard"
-    guitar = Guitar(fret=FRET_LENGTH)
+class Fretboard(Screen):
+    BINDINGS = [("c", "fret_clear", "clear fret")]
+
+    def action_fret_clear(self) -> None:
+        for f in self.query("Fret.-toggle").results(Fret):
+            f.remove_class("-toggle")
+            f.border_title = ""
+
+    def __init__(
+        self,
+        fret: int = 11,
+        name: str | None = None,
+        id: str | None = None,
+        classes: str | None = None,
+    ):
+        super().__init__(name=name, id=id, classes=classes)
+        self.fret = fret
+
+    def compose(self) -> ComposeResult:
+        with Container():
+            i = 0
+            for note in notes(self.fret):
+                string_num = int(i / (self.fret + 1)) + 1
+                fret_num = i % (self.fret + 1)
+                i += 1
+
+                yield Fret(note, id=f"s{string_num}-{fret_num}", classes=f"s{string_num}")
+
+    def on_mount(self) -> None:
+        container = self.get_child_by_type(Container)
+        container.border_title = "fretboard"
+        container.styles.grid_size_columns = 6
+        container.styles.grid_size_columns = self.fret+1
+
+        for i in range(self.fret+1):
+            f = self.query_one(f"#s6-{i}")
+            f.border_subtitle = str(i)
 
     def on_fret_pressed(self, event: Fret.Pressed) -> None:
         event.stop()
 
-        toggled_list = self.query("Fret.-toggle")
-        toggled_list = toggled_list.results(Fret)
-        toggled_list = list(toggled_list)
-
-        if len(toggled_list) == 0:
-            return
-
-        root = toggled_list.pop(-1)
-        root.border_title = str(1)
-
-        if len(toggled_list) == 0:
-            return
-
-        for toggled_fret in toggled_list:
-            title = interval(str(root.render()), str(toggled_fret.render()))
-            toggled_fret.border_title = title
-
-        # s = re.search(r"s([0-9])-([0-9]{1,2})", event.fret.id)
-        # note = self.guitar.fretboard[int(s.group(1))-1][int(s.group(2))]
-
-    def on_mount(self) -> None:
-        for i in range(self.FRET_LENGTH+1):
-            f = self.query_one(f"#s5-{i}")
-            f.border_subtitle = str(i)
-
-    def compose(self) -> ComposeResult:
-        fb = self.guitar.fretboard
-
-        for s in fb:
-            with Horizontal():
-                for i in s:
-                    yield Fret(str(i), id=f"s{fb.index(s)}-{s.index(i)}")
-
-
-class Horizontal(Widget):
-    DEFAULT_CSS = """
-    Horizontal {
-        layout: horizontal;
-        height: 3;
-    }
-    """
-
-    def on_fret_pressed(self, event: Fret.Pressed) -> None:
-        for fret in self.children:
-            if fret == event.fret:
+        for fret in self.query("Fret.-toggle").results(Fret):
+            if event.fret == fret:
                 continue
-            elif fret.has_class("-toggle"):
+            if event.fret.classes == fret.classes:
                 fret.remove_class("-toggle")
-                fret.border_title = ""
+
+        toggle = list(self.query("Fret.-toggle").results(Fret))
+        if len(toggle) == 0:
+            return
+        root = toggle.pop(-1)
+        root.border_title = str(1)
+        if len(toggle) == 0:
+            return
+
+        for fret in toggle:
+            title = interval(str(root.render()), str(fret.render()))
+            fret.border_title = title
 
 
 class Fret(Static):

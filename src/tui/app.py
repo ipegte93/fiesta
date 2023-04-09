@@ -1,18 +1,13 @@
-from textual.app import App as Textual
-from textual.app import ComposeResult
+from pathlib import Path
 
-from src.tui.fretboard import Fret, Fretboard
+from textual.app import App as Textual
+
+from src.tui.fretboard import Fretboard
 
 
 class App(Textual):
 
-    CSS_PATH = "app.css"
-    BINDINGS = [("c", "fret_clear", "clear fret")]
+    CSS_PATH = Path(__file__).parent / "app.css"
 
-    def action_fret_clear(self) -> None:
-        for f in self.query("Fret.-toggle").results(Fret):
-            f.remove_class("-toggle")
-            f.border_title = ""
-
-    def compose(self) -> ComposeResult:
-        yield Fretboard()
+    def on_mount(self) -> None:
+        self.push_screen(Fretboard())
