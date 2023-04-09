@@ -1,6 +1,7 @@
 from src import Note
 import re
 
+
 class Guitar:
     def __init__(
             self,
@@ -16,7 +17,7 @@ class Guitar:
         for s, string in enumerate(self.fretboard, start=1):
             for n, _note in enumerate(string):
                 if str(_note) == str(note):
-                    ret.append((s,n))
+                    ret.append((s, n))
         return ret
 
     @property
@@ -48,26 +49,30 @@ class Guitar:
 
         self.fretboard.reverse()
 
+
 def notes(fret: int, tuning: str = "EADGBE"):
     ret = list()
-    for note in list(tuning).reverse():
+    for note in list(tuning).__reversed__():
         for i in range(fret+1):
-            ret.append(Note(note)+i)
+            ret.append(str(Note(note)+i))
     return ret
+
 
 def scale(scale: str, fret: int, tuning: str = "EADGBE"):
     scale = scale.split(" ")
     note = Note(scale[0])
     scale = scale[1]
-    if scale == "major":
+    if scale.lower() == "major":
         scale = (2, 2, 1, 2, 2, 2, 1)
-    elif scale == "minor":
+    elif scale.lower() == "minor":
         scale = (2, 1, 2, 2, 1, 2, 2)
     else:
         raise ValueError("scale")
-        
+
     ret = list()
     ret.append(note)
     for i in scale:
         note += i
         ret.append(note)
+
+    return ret
