@@ -8,15 +8,26 @@ from textual.widget import events
 from textual.widgets import Static
 
 from src.calc import interval
-from src.guitar import notes
+from src.guitar import notes, scale
 
 
 class Fretboard(Screen):
-    BINDINGS = [("c", "fret_clear", "clear fret")]
+    BINDINGS = [
+        ("c", "fret_clear", "clear fret"),
+        ("p", "test_print", "test"),
+    ]
 
     async def action_fret_clear(self) -> None:
         for fret in self.query("Fret.-toggle").results(Fret):
             fret.toggle = False
+
+    async def action_test_print(self) -> None:
+        test = scale("a minor", self.fret)
+        test = list(map(str, test))
+        print(test)
+        for fret in self.query("Fret").results(Fret):
+            if not str(fret.render()) in test:
+                fret.disabled = True
 
     def __init__(
         self,
