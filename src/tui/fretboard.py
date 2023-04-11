@@ -14,14 +14,14 @@ from src.guitar import notes, scale
 class Fretboard(Screen):
     BINDINGS = [
         ("c", "fret_clear", "clear fret"),
-        ("p", "test_print", "test"),
+        ("t", "test", "test"),
     ]
 
     async def action_fret_clear(self) -> None:
         for fret in self.query("Fret.-toggle").results(Fret):
             fret.toggle = False
 
-    async def action_test_print(self) -> None:
+    async def action_test(self) -> None:
         test = scale("a minor", self.fret)
         test = list(map(str, test))
         print(test)
@@ -108,9 +108,11 @@ class Fret(Static):
         return self.has_class("-toggle")
 
     @toggle.setter
-    def toggle(self, value: bool):
+    def toggle(self, value: bool | str):
         if value:
             self.add_class("-toggle")
+            if type(value) == "str":
+                self.border_title = value
         else:
             self.remove_class("-toggle")
             self.border_title = ""
