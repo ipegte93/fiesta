@@ -47,7 +47,7 @@ class Fretboard(Screen):
                 fret_num = i % (self.fret + 1)
                 i += 1
 
-                yield Fret(note, id=f"s{string_num}-{fret_num}", classes=f"s{string_num}")
+                yield Fret(note, classes=f"s{string_num} f{fret_num}")
 
     def on_mount(self) -> None:
         container = self.get_child_by_type(Container)
