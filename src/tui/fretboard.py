@@ -54,10 +54,10 @@ class Fretboard(Screen):
         container.border_title = "fretboard"
         container.styles.grid_size_columns = 6
         container.styles.grid_size_columns = self.fret+1
-
+        
+        frets = self.query("Fret.s6")
         for i in range(self.fret+1):
-            f = self.query_one(f"#s6-{i}")
-            f.border_subtitle = str(i)
+            frets[i].border_subtitle = str(i)
 
     async def on_fret_pressed(self, event: Fret.Pressed) -> None:
         event.stop()
