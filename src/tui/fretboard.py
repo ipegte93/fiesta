@@ -55,7 +55,7 @@ class Fretboard(Screen):
         container.styles.grid_size_columns = 6
         container.styles.grid_size_columns = self.fret+1
         
-        frets = self.query("Fret.s6")
+        frets = self.query("Fret.s6").result(Fret)
         for i in range(self.fret+1):
             frets[i].border_subtitle = str(i)
 
