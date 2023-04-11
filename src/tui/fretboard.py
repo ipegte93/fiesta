@@ -61,11 +61,15 @@ class Fretboard(Screen):
 
     async def on_fret_pressed(self, event: Fret.Pressed) -> None:
         event.stop()
-
+        
+        string_cls = ""
+        for cls in event.fret.classes:
+            if cls[0] == "s":
+                string_cls = cls
         for fret in self.query("Fret.-toggle").results(Fret):
             if event.fret == fret:
                 continue
-            if event.fret.classes == fret.classes:  # Same string class
+            if fret.has_class(string_cls)
                 fret.toggle = False
 
         toggle = list(self.query("Fret.-toggle").results(Fret))
