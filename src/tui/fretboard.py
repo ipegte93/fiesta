@@ -109,14 +109,14 @@ class Fret(Static):
 
     @property
     def toggle(self) -> bool:
-        return self.has_class("-toggle")
+        if self.has_class("-toggle"):
+            return True
+        return False
 
     @toggle.setter
     def toggle(self, value: bool | str):
         if value:
             self.add_class("-toggle")
-            if type(value) == "str":
-                self.border_title = value
         else:
             self.remove_class("-toggle")
             self.border_title = ""
