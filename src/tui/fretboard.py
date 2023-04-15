@@ -55,7 +55,7 @@ class Fretboard(Screen):
         container.styles.grid_size_columns = 6
         container.styles.grid_size_columns = self.fret+1
 
-        # Display fret number
+        # Display fret number on bottom line
         frets = list(self.query("Fret.s6").results(Fret))
         for i in range(self.fret+1):
             frets[i].border_subtitle = str(i)
@@ -63,8 +63,9 @@ class Fretboard(Screen):
     async def on_fret_pressed(self, event: Fret.Pressed) -> None:
         event.stop()
 
+        # Only one fret toggled per string
         string_cls = ""
-        for cls in event.fret.classes:  # Find string number
+        for cls in event.fret.classes:
             if cls[0] == "s":
                 string_cls = cls
         for fret in self.query("Fret.-toggle").results(Fret):
