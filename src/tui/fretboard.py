@@ -7,7 +7,7 @@ from textual.screen import Screen
 from textual.widget import events
 from textual.widgets import Static
 
-from src.calc import interval
+from src import Note
 from src.guitar import notes, scale
 
 
@@ -122,3 +122,22 @@ class Fret(Static):
         else:
             self.remove_class("-toggle")
             self.border_title = ""
+
+
+def interval(note1: str, note2: str) -> str:
+    note1 = Note(note1)
+    note2 = Note(note2)
+
+    i = note1 - note2
+
+    interval_dict = {
+        0: "1",
+        3: "m3", 4: "3",
+        6: "b5", 7: "5",
+        10: "7", 11: "maj7"
+    }
+
+    if i in interval_dict:
+        return interval_dict[i]
+    else:
+        return ""
