@@ -30,11 +30,11 @@ Fret:hover {
 }
 
 Fret:disabled {
-  border: solid $background-lighten-3;
+  border: $background-lighten-3;
   color: $surface;
 }
 
 Fret.-toggle {
-  border: solid gold;
+  border: gold;
   color: gold;
 }
