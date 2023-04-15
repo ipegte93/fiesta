@@ -17,7 +17,7 @@ class Fretboard(Screen):
         ("t", "test", "test"),
     ]
 
-    async def action_fret_clear(self) -> None:
+    def action_fret_clear(self) -> None:
         for fret in self.query("Fret").results(Fret):
             fret.toggle = False
 
@@ -55,24 +55,24 @@ class Fretboard(Screen):
         container.styles.grid_size_columns = 6
         container.styles.grid_size_columns = self.fret+1
 
-        # Display fret number on bottom line
-        frets = list(self.query("Fret.s6").results(Fret))
-        for i in range(self.fret+1):
-            frets[i].border_subtitle = str(i)
+        # # Display fret number on bottom line
+        # frets = list(self.query("Fret.s6").results(Fret))
+        # for i in range(self.fret+1):
+        #     frets[i].border_subtitle = str(i)
 
     async def on_fret_pressed(self, event: Fret.Pressed) -> None:
         event.stop()
 
-        # Only one fret toggled per string
-        string_cls = ""
-        for cls in event.fret.classes:
-            if cls[0] == "s":
-                string_cls = cls
-        for fret in self.query("Fret.-toggle").results(Fret):
-            if event.fret == fret:
-                continue
-            if fret.has_class(string_cls):
-                fret.toggle = False
+        # # Only one fret toggled per string
+        # string_cls = ""
+        # for cls in event.fret.classes:
+        #     if cls[0] == "s":
+        #         string_cls = cls
+        # for fret in self.query("Fret.-toggle").results(Fret):
+        #     if event.fret == fret:
+        #         continue
+        #     if fret.has_class(string_cls):
+        #         fret.toggle = False
 
         toggle = list(self.query("Fret.-toggle").results(Fret))
         if len(toggle) == 0:
@@ -80,11 +80,13 @@ class Fretboard(Screen):
             return
 
         root = toggle.pop(-1)
-        root.border_title = "1"
+        # root.border_title = "1"
 
-        for fret in toggle:
+        # for fret in toggle:
+        for fret in self.query("Fret").results(Fret):
             title = interval(str(root.render()), str(fret.render()))
-            fret.border_title = title
+            if not fret.disabled:
+                fret.border_title = title
 
 
 class Fret(Static):
@@ -98,6 +100,12 @@ class Fret(Static):
         @property
         def control(self) -> Fret:
             return self.fret
+
+    # def on_mount(self) -> None:
+    #     for i in ("f3", "f5", "f7", "f9", "f12", "f15", "f17", "f19", "f21", "f24"):
+    #         if self.has_class(i):
+    #             self.add_class("inlay")
+    #             break
 
     async def _on_click(self, event: events.Click) -> None:
         event.stop()
